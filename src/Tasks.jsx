@@ -4,9 +4,11 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import "./Task.css";
 import { FaPlus } from "react-icons/fa6";
 import { FiMinus } from "react-icons/fi";
+
 const Tasks = () => {
   const { todos, setTodos } = useContext(data);
   const [isActive, setisActive] = useState(false);
+
   function handleDeleting(index) {
     setTodos(todos.filter((todo, i) => i !== index));
   }
@@ -29,8 +31,11 @@ const Tasks = () => {
       </div>
       <ul className="mt-5 max-h-72 overflow-y-auto scrollbar-hidden">
         {todos.map((todo, index) => (
-          <div className="bg-gray-800 rounded-lg mb-3 p-3 hover:bg-gray-600 transition-all">
-            <div key={index} className="flex items-center justify-between ">
+          <div
+            key={index}
+            className="bg-gray-800 rounded-lg mb-3 p-3 hover:bg-gray-600 transition-all"
+          >
+            <div className="flex items-center justify-between">
               <li className="text-white text-lg">{todo.task}</li>
               <div className="flex items-center space-x-2">
                 <button onClick={() => setisActive(!isActive)}>
@@ -46,7 +51,6 @@ const Tasks = () => {
                     />
                   )}
                 </button>
-
                 <button
                   onClick={() => handleDeleting(index)}
                   className="text-red-500 hover:text-red-700 transition-colors"
@@ -55,7 +59,14 @@ const Tasks = () => {
                 </button>
               </div>
             </div>
-            {isActive && <p className="text-white text-lg">This is a task</p>}
+
+            <div
+              className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                isActive ? "max-h-20 opacity-100 scale-100" : "max-h-0 opacity-0 scale-95"
+              }`}
+            >
+              <p className="text-white text-lg mt-2">This is a task</p>
+            </div>
           </div>
         ))}
       </ul>
